@@ -26,7 +26,7 @@ const NewIssuePage = () => {
   } = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema),
   });
-  const newIssueSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
       await axios.post("/api/issues", data);
@@ -44,7 +44,7 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form className="space-y-3" onSubmit={newIssueSubmit}>
+      <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input placeholder="Title" {...register("title")} />
         </TextField.Root>
