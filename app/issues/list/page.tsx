@@ -5,6 +5,7 @@ import { Issue, Status } from "@prisma/client";
 import IssueTable from "./IssueTable";
 import { columnNames } from "./IssueTable";
 import { Flex } from "@radix-ui/themes";
+import { Metadata } from "next/types";
 
 interface Props {
   searchParams: {
@@ -52,5 +53,10 @@ const IssuesPage = async ({ searchParams }: Props) => {
 };
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "BugBrew - Issue List",
+  description: "View all project issues"
+}
 
 export default IssuesPage;
