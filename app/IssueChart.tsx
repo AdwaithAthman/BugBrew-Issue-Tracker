@@ -10,12 +10,14 @@ import {
 } from "recharts";
 
 interface Props {
-  open: number;
-  inProgress: number;
-  closed: number;
+  issueCount: {
+    open: number;
+    inProgress: number;
+    closed: number;
+  };
 }
 
-const IssueChart = ({ open, inProgress, closed }: Props) => {
+const IssueChart = ({ issueCount: { open, inProgress, closed } }: Props) => {
   const data = [
     { label: "Open", value: open },
     { label: "In Progress", value: inProgress },
@@ -23,17 +25,9 @@ const IssueChart = ({ open, inProgress, closed }: Props) => {
   ];
 
   return (
-    <Card>
+    <Card className="py-5">
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
+        <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="label" />
           <YAxis />

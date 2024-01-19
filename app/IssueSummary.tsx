@@ -3,12 +3,14 @@ import { Card, Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
 
 interface Props {
-  open: number;
-  inProgress: number;
-  closed: number;
+  issueCount: {
+    open: number;
+    inProgress: number;
+    closed: number;
+  };
 }
 
-const IssueSummary = ({ open, inProgress, closed }: Props) => {
+const IssueSummary = ({ issueCount: { open, inProgress, closed } }: Props) => {
   const containers: {
     label: string;
     value: number;
@@ -21,10 +23,17 @@ const IssueSummary = ({ open, inProgress, closed }: Props) => {
   return (
     <Flex gap="5">
       {containers.map((container) => (
-        <Card key={container.label} className="px-1">
+        <Card key={container.label} className="px-3 py-1">
           <Flex direction="column" gap="1">
-            <Link className="text-sm font-medium" href={`/issues/list?status=${container.status}`}>{container.label}</Link>
-            <Text size="5" className="font-bold">{container.value}</Text>
+            <Link
+              className="text-sm font-medium"
+              href={`/issues/list?status=${container.status}`}
+            >
+              {container.label}
+            </Link>
+            <Text size="5" className="font-bold">
+              {container.value}
+            </Text>
           </Flex>
         </Card>
       ))}
