@@ -12,6 +12,7 @@ interface Props {
     status: Status;
     orderBy: keyof Issue;
     page: string;
+    pageSize: string;
   };
 }
 
@@ -29,7 +30,10 @@ const IssuesPage = async ({ searchParams }: Props) => {
     : undefined;
 
   const page = parseInt(searchParams.page) || 1;
-  const pageSize = 10;
+  const pageSize =
+    (parseInt(searchParams.pageSize) <= 25
+      ? parseInt(searchParams.pageSize)
+      : undefined) || 10;
 
   const issues = await prisma.issue.findMany({
     where,
@@ -56,7 +60,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "BugBrew - Issue List",
-  description: "View all project issues"
-}
+  description: "View all project issues",
+};
 
 export default IssuesPage;
