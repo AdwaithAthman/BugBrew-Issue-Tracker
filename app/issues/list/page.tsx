@@ -2,15 +2,21 @@ import IssueActions from "./IssueActions";
 import prisma from "@/prisma/client";
 import { Pagination } from "@/app/components";
 import { Issue, Status } from "@prisma/client";
-import IssueTable from "./IssueTable";
-import { columnNames } from "./IssueTable";
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next/types";
+import IssueTable from "./IssueTable";
+
+const columns: { label: string; value: keyof Issue; className?: string }[] = [
+  { label: "Issue", value: "title" },
+  { label: "Status", value: "status", className: "hidden md:table-cell" },
+  { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
+];
 
 interface Props {
   searchParams: {
     status: Status;
     orderBy: keyof Issue;
+    orderIn: string;
     page: string;
     pageSize: string;
   };
@@ -24,9 +30,11 @@ const IssuesPage = async ({ searchParams }: Props) => {
     : undefined;
 
   const where = { status };
+  const orderIn = searchParams.orderIn === "asc" ? "asc" : "desc";
 
+  const columnNames = columns.map((column) => column.value);
   const orderBy = columnNames.includes(searchParams.orderBy)
-    ? { [searchParams.orderBy]: "asc" }
+    ? { [searchParams.orderBy]: orderIn }
     : undefined;
 
   const page = parseInt(searchParams.page) || 1;

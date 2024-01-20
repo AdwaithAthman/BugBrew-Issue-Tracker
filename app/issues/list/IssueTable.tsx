@@ -1,12 +1,16 @@
+"use client";
+
 import { IssueStatusBadge, Link } from "@/app/components";
 import { Issue, Status } from "@prisma/client";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowUpIcon, ArrowDownIcon } from "@radix-ui/react-icons";
 import { Table } from "@radix-ui/themes";
 import NextLink from "next/link";
+import { useState } from "react";
 
 export interface IssueQuery {
   status: Status;
   orderBy: keyof Issue;
+  orderIn: string;
   page: string;
 }
 
@@ -16,6 +20,7 @@ interface Props {
 }
 
 const IssueTable = ({ searchParams, issues }: Props) => {
+  const [isAscOrder, SetIsAscOrder] = useState(true);
   return (
     <Table.Root variant="surface">
       <Table.Header>
@@ -27,14 +32,22 @@ const IssueTable = ({ searchParams, issues }: Props) => {
             >
               <NextLink
                 href={{
-                  query: { ...searchParams, orderBy: column.value },
+                  query: {
+                    ...searchParams,
+                    orderBy: column.value,
+                    orderIn: isAscOrder ? "asc" : "desc",
+                  },
                 }}
+                onClick={() => SetIsAscOrder(!isAscOrder)}
               >
                 {column.label}
               </NextLink>
-              {column.value === searchParams.orderBy && (
-                <ArrowUpIcon className="inline" />
-              )}
+              {column.value === searchParams.orderBy &&
+                (isAscOrder ? (
+                  <ArrowUpIcon className="inline transform rotate-180" />
+                ) : (
+                  <ArrowDownIcon className="inline transform rotate-180" />
+                ))}
             </Table.ColumnHeaderCell>
           ))}
         </Table.Row>
@@ -66,7 +79,5 @@ const columns: { label: string; value: keyof Issue; className?: string }[] = [
   { label: "Status", value: "status", className: "hidden md:table-cell" },
   { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
 ];
-
-export const columnNames = columns.map((column) => column.value);
 
 export default IssueTable;
