@@ -15,7 +15,6 @@ import {
   Text,
 } from "@radix-ui/themes";
 import Skeleton from "@/app/components/Skeleton";
-import { useRouter } from "next/navigation";
 
 const NavBar = () => {
   return (
@@ -41,7 +40,6 @@ const NavBar = () => {
 };
 
 const NavLinks = () => {
-  const router = useRouter()
   const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/" },
@@ -51,18 +49,15 @@ const NavLinks = () => {
     <ul className="flex space-x-6">
       {links.map((link) => (
         <li key={link.label}>
-          <Box
+          <Link
+            href={link.href}
             className={classnames({
               "nav-link cursor-pointer": true,
               "!text-zinc-900": link.href === currentPath,
             })}
-            onClick={() => {
-              router.push(`${link.href}`);
-              router.refresh()
-            }}
           >
             {link.label}
-          </Box>
+          </Link>
         </li>
       ))}
     </ul>
