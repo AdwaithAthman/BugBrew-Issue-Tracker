@@ -19,8 +19,9 @@ body {
   background-color: rgb(var(--background-start-rgb));
 }
 
-[data-radix-button].DeleteIssueButton {
-  background-color: red !important;
+[type=button], [type=reset], [type=submit], button {
+  background-color: none;
+  background-image: none;
 }
 
 @layer utilities {
