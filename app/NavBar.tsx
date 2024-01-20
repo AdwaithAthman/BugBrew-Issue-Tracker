@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { AiFillBug } from "react-icons/ai";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
@@ -15,15 +15,21 @@ import {
   Text,
 } from "@radix-ui/themes";
 import Skeleton from "@/app/components/Skeleton";
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
   return (
     <nav className="border-b mb-5 px-5 h-14 py-3">
       <Container>
         <Flex justify="between">
-          <Flex align="center" gap="3">
+          <Flex align="center" gap="6">
             <Link href="/">
-              <AiFillBug />
+              <Image
+                src="https://res.cloudinary.com/dkxyfsxso/image/upload/v1705717696/bugbrew-removebg-preview_1_mvrxj0.png"
+                alt="BugBrew Logo"
+                width={100}
+                height={60}
+              />
             </Link>
             <NavLinks />
           </Flex>
@@ -35,6 +41,7 @@ const NavBar = () => {
 };
 
 const NavLinks = () => {
+  const router = useRouter()
   const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/" },
@@ -44,15 +51,18 @@ const NavLinks = () => {
     <ul className="flex space-x-6">
       {links.map((link) => (
         <li key={link.label}>
-          <Link
-            href={link.href}
+          <Box
             className={classnames({
-              "nav-link": true,
+              "nav-link cursor-pointer": true,
               "!text-zinc-900": link.href === currentPath,
             })}
+            onClick={() => {
+              router.push(`${link.href}`);
+              router.refresh()
+            }}
           >
             {link.label}
-          </Link>
+          </Box>
         </li>
       ))}
     </ul>
@@ -61,9 +71,13 @@ const NavLinks = () => {
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
-  if (status === "loading") return  <Skeleton width="3rem" />;
+  if (status === "loading") return <Skeleton width="3rem" />;
   if (status === "unauthenticated")
-    return <Link className="nav-link" href="/api/auth/signin">Login</Link>;
+    return (
+      <Link className="nav-link" href="/api/auth/signin">
+        Login
+      </Link>
+    );
   return (
     <Box>
       <DropdownMenu.Root>
