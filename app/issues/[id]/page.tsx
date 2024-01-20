@@ -3,11 +3,17 @@ import prisma from "@/prisma/client";
 import { Grid, Box, Flex } from "@radix-ui/themes";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
-import DeleteIssueButton from "./DeleteIssueButton";
 import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
 import { cache } from "react";
+import dynamic from "next/dynamic";
+import { Skeleton } from "@/app/components"
+
+const DeleteIssueButton = dynamic(() => import("./DeleteIssueButton"), { 
+  ssr: false,
+  loading: () => <Skeleton height="2rem" /> 
+});
 
 interface Props {
   params: { id: string };
