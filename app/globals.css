@@ -19,6 +19,10 @@ body {
   background-color: rgb(var(--background-start-rgb));
 }
 
+[data-radix-button].DeleteIssueButton {
+  background-color: red !important;
+}
+
 @layer utilities {
   .nav-link {
     @apply text-zinc-500 hover:text-zinc-800 transition-colors;
