@@ -6,6 +6,8 @@ From a comprehensive dashboard with charts to client-side validated forms, user 
 <a href="https://www.linkedin.com/posts/adwaith-athman_excited-to-share-my-latest-project-bugbrew-activity-7155935466456813568-z5Hj?utm_source=share&utm_medium=member_desktop">
 <strong>Demo</strong></a>
 
+![Logo](https://res.cloudinary.com/dkxyfsxso/image/upload/v1705717696/bugbrew-removebg-preview_1_mvrxj0.png)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
