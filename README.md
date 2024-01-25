@@ -1,3 +1,11 @@
+# BugBrew
+BugBrew was developed with the primary goal of gaining a deeper understanding of Next.js, and it encapsulates all the essential features of modern applications. 
+From a comprehensive dashboard with charts to client-side validated forms, user authentication, and access control, this app is a testament to the versatility and power of Next.js.
+<br>
+<a href="https://bug-brew-issue-tracker.vercel.app"><strong>Link</strong></a>
+<a href="https://www.linkedin.com/posts/adwaith-athman_excited-to-share-my-latest-project-bugbrew-activity-7155935466456813568-z5Hj?utm_source=share&utm_medium=member_desktop">
+<strong>Demo</strong></a>
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
